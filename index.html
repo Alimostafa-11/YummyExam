@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./img/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/all.min.css" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Yummy</title>
+  </head>
+  <body>
+    <div
+      class="loading-screen position-fixed top-0 start-0 end-0 bottom-0 bg-black justify-content-center align-items-center"
+    >
+      <i class="fa fa-spinner fa-spin fa-5x"></i>
+    </div>
+
+    <div class="side-nav-menu vh-100 position-fixed d-flex top-0">
+      <div
+        class="nav-tab d-flex flex-column justify-content-between vh-100 text-white p-4"
+      >
+        <div class="links">
+          <ul class="list-unstyled overflow-hidden">
+            <li
+              onclick="showSearchInputs()"
+              class="py-2 position-relative cursor-pointer"
+            >
+              Search
+            </li>
+            <li
+              onclick="getCategories()"
+              class="py-2 position-relative cursor-pointer"
+            >
+              Categories
+            </li>
+            <li
+              onclick="getArea()"
+              class="py-2 position-relative cursor-pointer"
+            >
+              Area
+            </li>
+            <li
+              onclick="getIngredients()"
+              class="py-2 position-relative cursor-pointer"
+            >
+              Ingredients
+            </li>
+            <li
+              onclick="showContacts()"
+              class="py-2 position-relative cursor-pointer"
+            >
+              Contact Us
+            </li>
+          </ul>
+        </div>
+        <div class="nav-footer">
+          <div class="icons">
+            <i class="fa-brands fa-facebook text-white"></i>
+            <i class="fa-brands fa-twitter text-white"></i>
+            <i class="fa-solid fa-globe text-white"></i>
+          </div>
+          <div class="footer">
+            <p>
+              Copyright Â© 2019 All Rights
+              <br />
+              Reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="nav-header d-flex flex-column justify-content-between py-4 text-center px-2 bg-white text-black"
+      >
+        <img class="logo" src="./img/logo.png" alt="logo" />
+        <i
+          onclick="openSideNav()"
+          id="openBtn"
+          class="fa-solid fa-align-justify fa-2x cursor-pointer"
+        ></i>
+        <i
+          onclick="closeSideNav()"
+          id="closeBtn"
+          class="fa-solid fa-x fa-2x d-none cursor-pointer"
+        ></i>
+
+        <div>
+          <i class="fa-solid fa-globe d-block text-black"></i>
+          <i class="fa-solid fa-share-nodes text-black"></i>
+        </div>
+      </div>
+    </div>
+    <!-- -------------------------------------------------------------------------------------- -->
+
+    <div id="searchInputsContainer"></div>
+    <div id="searchResults" class="container mt-4 row g-4"></div>
+    <div id="rowData" class="row py-5 g-4"></div>
+    <div id="mealsContainer" class="row g-4"></div>
+
+    <!-- --------------------------------------------------------------- -->
+    <div class="vh-100 position-relative">
+      <div
+        class="inner-loading-screen top-0 start-0 end-0 bottom-0 justify-content-center align-items-center"
+      >
+        <i class="fa fa-spinner fa-spin fa-5x"></i>
+      </div>
+      <div class="container">
+        <div class="row py-5 g-4" id="rowData">
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53086')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/xd9aj21740432378.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Migas</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53065')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/g046bb1663960946.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Sushi</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53060')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/tkxquw1628771028.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Burek</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52977')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/58oia61564916529.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Corba</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52978')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/mlchx21564916997.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Kumpir</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53026')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/n3xxd91598732796.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Tamiya</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53069')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/4pqimk1683207418.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Bistek</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52948')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/1525876468.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Wontons</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52971')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/1bsv1q1560459826.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Kafteji</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53013')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/urzj1d1587670726.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Big Mac</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52844')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/wtsvxx1511296896.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Lasagne</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52929')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/txsupu1511815755.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Timbits</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52785')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/wuxrtu1483564410.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Dal fry</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53027')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/4er7mj1598733193.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Koshari</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53027')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/uuyrrx1487327597.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Poutine</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52854')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/rwuyqx1511383174.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Pancakes</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52769')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/sxysrt1468240488.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Kapsalon</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53006')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/ctg8jd1585563097.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Moussaka</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53028')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/kcv6hj1598733479.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Shawarma</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52802')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/ysxwuq1487323065.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Fish pie</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52980')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/hyarod1565090529.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Stamppot</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52906')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/wssvvs1511785879.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Flamiche</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52887')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/utxqpt1511639216.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Kedgeree</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('52811')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/xrrwpx1487347049.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Ribollita</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div
+              onclick="getMealDetails('53052')"
+              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
+            >
+              <img class="w-100" src="./img/hx335q1619789561.jpg" alt="" />
+              <div
+                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
+              >
+                <h3>Roti john</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
