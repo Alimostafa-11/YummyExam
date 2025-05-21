@@ -1,4 +1,5 @@
 let rowData = document.querySelector("#rowData");
+let inputs = document.querySelector("#inputs");
 
 // id
 async function getMealDetails(mealId) {
@@ -30,7 +31,7 @@ function displayMealDetails(meal) {
       .join("");
   }
 
-  rowData.innerHTML = `
+  container.innerHTML = `
     <div class="container w-75 py-5">
       <div class="row">
         <div class="col-md-4">
@@ -61,6 +62,8 @@ function displayMealDetails(meal) {
       </div>
     </div>
   `;
+  rowData.classList.add("d-none");
+  inputs.classList.add("d-none");
 }
 
 // search
@@ -79,7 +82,7 @@ function showSearchInputs() {
     </div>
   `;
 
-  document.getElementById("searchInputsContainer").innerHTML = searchInputsHTML;
+  document.getElementById("inputs").innerHTML = searchInputsHTML;
 
   document
     .getElementById("searchByName")
@@ -93,7 +96,7 @@ function showSearchInputs() {
       searchByFirstLetter(this.value.charAt(0));
     });
 
-  document.getElementById("searchInputsContainer").classList.remove("d-none");
+  document.getElementById("rowData").classList.add("d-none");
 }
 
 document.getElementById("searchByName").addEventListener("keyup", function () {
@@ -101,11 +104,13 @@ document.getElementById("searchByName").addEventListener("keyup", function () {
   if (query !== "") {
     searchByName(query);
   } else {
-    document.getElementById("searchResults").innerHTML = "";
+    document.getElementById("container").innerHTML = "";
   }
 });
 
 async function searchByName(query) {
+  inputs.classList.remove("d-none");
+
   const response = await fetch(
     `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
   );
@@ -117,7 +122,7 @@ async function searchByName(query) {
 }
 
 function displaySearchResults(meals) {
-  const container = document.getElementById("searchResults");
+  const container = document.getElementById("container");
   container.innerHTML = meals
     .map(
       (meal) => `
@@ -138,6 +143,7 @@ function displaySearchResults(meals) {
     `
     )
     .join("");
+
 }
 
 document
@@ -148,11 +154,13 @@ document
     if (letter.length === 1) {
       searchByFirstLetter(letter);
     } else {
-      document.getElementById("searchResults").innerHTML = "";
+      document.getElementById("container").innerHTML = "";
     }
   });
 
 async function searchByFirstLetter(letter) {
+  inputs.classList.remove("d-none");
+
   const response = await fetch(
     `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`
   );
@@ -161,31 +169,6 @@ async function searchByFirstLetter(letter) {
   if (data.meals) {
     displayMeals(data.meals);
   }
-}
-
-function displaySearchResults(meals) {
-  const container = document.getElementById("searchResults");
-  container.innerHTML = meals
-    .map(
-      (meal) => `
-  
-          <div class="col-md-3">
-            <div
-              onclick="getMealDetails('${meal.idMeal}')"
-              class="meal position-relative overflow-hidden rounded-2 cursor-pointer"
-            >
-              <img class="w-100" src="${meal.strMealThumb}" alt="${meal.strMeal}" />
-              <div
-                class="meal-layer position-absolute d-flex align-items-center text-black p-2"
-              >
-                <h3>${meal.strMeal}</h3>
-              </div>
-            </div>
-          </div>
-    `
-    )
-    .join("");
-  rowData.classList.remove("d-none");
 }
 
 // category
@@ -199,9 +182,6 @@ async function getCategories() {
   if (data.categories) {
     displayCategories(data.categories);
   }
-  // searchInputsContainer.classList.add("d-none");
-  document.getElementById("searchInputsContainer").classList.add("d-none");
-  document.getElementById("rowData").classList.remove("d-none");
 }
 
 getCategories();
@@ -218,7 +198,7 @@ async function getCategoryMeals(categoryName) {
 }
 
 function displayCategories(categories) {
-  const container = document.getElementById("rowData");
+  const container = document.getElementById("container");
   container.innerHTML = categories
     .map(
       (category) => `
@@ -241,6 +221,8 @@ function displayCategories(categories) {
       `
     )
     .join("");
+  rowData.classList.add("d-none");
+  inputs.classList.add("d-none");
 }
 
 // Area
@@ -251,8 +233,6 @@ async function getArea() {
   );
   const data = await response.json();
   displayArea(data.meals);
-  document.getElementById("searchInputsContainer").classList.add("d-none");
-  document.getElementById("rowData").classList.remove("d-none");
 }
 
 getArea();
@@ -269,7 +249,7 @@ async function getAreaMeals(areaName) {
 }
 
 function displayArea(areas) {
-  const container = document.getElementById("rowData");
+  const container = document.getElementById("container");
   container.innerHTML = areas
     .map(
       (area) => `
@@ -282,7 +262,8 @@ function displayArea(areas) {
       `
     )
     .join("");
-  // rowData.classList.remove("d-none");
+  rowData.classList.add("d-none");
+  inputs.classList.add("d-none");
 }
 
 // Ingredients
@@ -293,8 +274,8 @@ async function getIngredients() {
   );
   const data = await response.json();
   displayIngredients(data.meals.slice(0, 20)); // نعرض أول 20 فقط للتنظيم
-  document.getElementById("searchInputsContainer").classList.add("d-none");
-  document.getElementById("rowData").classList.remove("d-none");
+  document.getElementById("container").classList.add("d-none");
+  document.getElementById("container").classList.remove("d-none");
 }
 getIngredients();
 
@@ -313,30 +294,28 @@ async function getIngredientsMeals(ingredientName) {
 }
 
 function displayIngredients(ingredients) {
-  const container = document.getElementById("rowData");
+  const container = document.getElementById("container");
   container.innerHTML = ingredients
     .map(
       (ing) => `
         <div class="col-md-3">
-          <div onclick="getIngredientsMeals('${
-            ing.strIngredient
-          }')"  class="rounded-2 text-center cursor-pointer">
+          <div onclick="getIngredientsMeals('${ing.strIngredient
+        }')"  class="rounded-2 text-center cursor-pointer">
             <i class="fa-solid fa-drumstick-bite fa-4x mb-2"></i>
             <h5>${ing.strIngredient}</h5>
-            <p>${
-              ing.strDescription?.split(" ").slice(0, 15).join(" ") || ""
-            }...</p>
+            <p>${ing.strDescription?.split(" ").slice(0, 15).join(" ") || ""
+        }...</p>
           </div>
         </div>
       `
     )
     .join("");
-  // rowData.classList.remove("d-none");
-  // searchInputsContainer.classList.remove("d-none");
+  rowData.classList.add("d-none");
+  inputs.classList.add("d-none");
 }
 
 function displayMeals(meals) {
-  const container = document.getElementById("rowData");
+  const container = document.getElementById("container");
   container.innerHTML = meals
     .map(
       (meal) => `
@@ -351,14 +330,14 @@ function displayMeals(meals) {
       `
     )
     .join("");
-  document.getElementById("mealsContainer").innerHTML = mealsHTML;
-  // rowData.classList.remove("d-none");
+  document.getElementById("container").innerHTML = mealsHTML;
+  inputs.classList.remove("d-none");
 }
 
 // contact Us
 
 function showContacts() {
-  rowData.innerHTML = `
+  container.innerHTML = `
     <div class="contact min-vh-100 d-flex justify-content-center align-items-center">
       <div class="container w-75 text-center">
         <div class="row g-4">
@@ -403,6 +382,8 @@ function showContacts() {
       </div>
     </div>
   `;
+  rowData.classList.add("d-none");
+  inputs.classList.add("d-none");
 }
 
 function inputsValidation() {
